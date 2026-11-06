@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: guide-michelin-api
+  datasource:
+    # Base en mémoire (H2) comme vu en cours : les données sont perdues à l'arrêt
+    url: jdbc:h2:mem:michelin
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 20MB
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Keycloak du cours (realm master, à adapter si le prof a créé un autre realm)
+          issuer-uri: ${OIDC_ISSUER_URI:https://keycloak.bober.ovh/realms/master}
+
+# Stockage S3 (identifiants donnés dans l'énoncé)
+storage:
+  s3:
+    url: ${S3_URL:https://s3.bober.ovh}
+    access-key-id: ${S3_ACCESS_KEY_ID:cqBlF80IVJrc1isWW6oK}
+    secret-access-key: ${S3_SECRET_ACCESS_KEY:KPJlY826Qi0d952w4GWmQIvA0zfvWi62hvIyiZlT}
+    bucket-restaurant: restaurant
+    bucket-evaluation: evaluation
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
